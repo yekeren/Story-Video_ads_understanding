@@ -1,0 +1,53 @@
+example_reader {
+  input_path: "output/video_ads_agree1.record.0" 
+  input_path: "output/video_ads_agree1.record.1" 
+  input_path: "output/video_ads_agree1.record.2" 
+  input_path: "output/video_ads_agree1.record.3" 
+  input_path: "output/video_ads_agree1.record.4" 
+  input_path: "output/video_ads_agree1.record.5" 
+  batch_size: 32
+}
+model {
+  climax_model {
+    number_of_sentiments: 30
+    number_of_topics: 38
+    encode_method: NONE
+    lstm_number_of_layers: 1
+    lstm_hidden_units: 64
+    lstm_input_keep_prob: 0.5
+    lstm_output_keep_prob: 0.5
+    lstm_state_keep_prob: 0.5
+    lstm_init_width: 0.08
+    bof_input_dropout_keep_prob: 0.5
+    final_task: SENTIMENT
+    topic_loss_weight: 1.0
+    use_frame_features: false
+    use_common_object: true
+    use_place: true
+    use_emotic: false
+    use_affectnet: true
+    use_shot_boundary: true
+    use_optical_flow: true
+    use_audio: true
+  }
+}
+train_config {
+  moving_average: true
+  learning_rate: 0.2
+  learning_rate_decay_steps: 6000
+  learning_rate_decay_rate: 1.0
+  learning_rate_staircase: false
+  optimizer {
+    adagrad {
+    }
+  }
+  number_of_steps: 10000
+  log_every_n_steps: 1
+  save_interval_secs: 30
+  save_summaries_secs: 30
+}
+eval_config {
+  eval_min_global_steps: 10
+  number_of_steps: 100000
+  eval_interval_secs: 30
+}

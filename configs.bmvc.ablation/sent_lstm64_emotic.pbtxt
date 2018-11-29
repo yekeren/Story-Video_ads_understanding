@@ -1,0 +1,57 @@
+example_reader {
+  input_path: "output/video_ads_agree1.record.0" 
+  input_path: "output/video_ads_agree1.record.1" 
+  input_path: "output/video_ads_agree1.record.2" 
+  input_path: "output/video_ads_agree1.record.3" 
+  input_path: "output/video_ads_agree1.record.4" 
+  input_path: "output/video_ads_agree1.record.5" 
+  batch_size: 32
+}
+model {
+  baseline_model {
+    number_of_sentiments: 30
+    number_of_topics: 38
+    encode_method: LSTM
+    lstm_number_of_layers: 1
+    lstm_hidden_units: 64
+    lstm_input_keep_prob: 0.5
+    lstm_output_keep_prob: 0.5
+    lstm_state_keep_prob: 0.5
+    lstm_init_width: 0.08
+    final_task: SENTIMENT
+    topic_loss_weight: 1.0
+    use_frame_features: true
+    use_common_object: false
+    use_place: false
+    use_emotic: true
+    use_shot_boundary: false
+    use_optical_flow: false
+    use_audio: false
+    sentiment_loss_function: SIGMOID_RAW
+    sample_negatives: true
+    negative_multiplier: 5
+    joint_training_model: false
+  }
+}
+train_config {
+  moving_average: true
+  learning_rate: 0.0002
+  learning_rate_decay_steps: 6000
+  learning_rate_decay_rate: 1.0
+  learning_rate_staircase: false
+  optimizer {
+    rmsprop {
+      decay: 0.95
+      momentum: 1e-8
+    }
+  }
+  number_of_steps: 10000
+  log_every_n_steps: 1
+  save_interval_secs: 60
+  save_summaries_secs: 60
+}
+eval_config {
+  eval_min_global_steps: 500
+  number_of_steps: 100000
+  eval_interval_secs: 60
+}

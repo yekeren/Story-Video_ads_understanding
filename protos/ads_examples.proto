@@ -1,0 +1,63 @@
+syntax = "proto2";
+
+// Ads example reader.
+message AdsExamples {
+  // Path to the input tf record file.
+  repeated string input_path = 1;
+
+  // Number of examples in the dataset.
+  optional int32 num_examples = 2 [ default = 2429 ];
+
+  // Batch size.
+  optional int32 batch_size = 3 [ default = 32];
+
+  // Dimensions of the feature.
+  optional int32 feature_dims = 4 [ default = 2048 ];
+
+  // Dimensions of the common object feature.
+  optional int32 common_object_feature_dims = 5 [ default = 90 ];
+
+  // Dimensions of the place feature.
+  optional int32 place_feature_dims = 6 [ default = 365 ];
+
+  // Dimensions of the emotic feature.
+  optional int32 emotic_feature_dims = 7 [ default = 31 ];
+
+  // Dimensions of the shot boundary feature.
+  optional int32 shot_boundary_feature_dims = 8 [ default = 5 ];
+
+  // Dimensions of the optical flow feature.
+  optional int32 optical_flow_feature_dims = 70 [ default = 1 ];
+
+  // Dimensions of the audio feature.
+  optional int32 audio_feature_dims = 71 [ default = 1 ];
+
+  // Dimensions of the affectnet feature.
+  optional int32 affectnet_feature_dims = 72 [ default = 10 ];
+
+  // Dimensions of the sentimet labels.
+  optional int32 sentiment_num_classes = 9 [ default = 30 ];
+
+  // Number of readers used in data provider.
+  optional int32 data_provider_num_readers = 10 [ default = 2 ];
+
+  // Common queue capacity used in data provider.
+  optional int32 data_provider_common_queue_capacity = 11 [ default = 600 ]; 
+
+  // Common queue min used in data provider.
+  optional int32 data_provider_common_queue_min = 12 [ default = 200 ];
+
+  // Number of threads used to batch data.
+  optional int32 batch_op_num_threads = 13 [ default = 2 ];
+
+  // Capacity of the reading queue.
+  optional int32 batch_op_capacity = 14 [ default = 600 ];
+
+  // Min after dequeue.
+  optional int32 batch_op_min_after_dequeue = 15 [ default = 200 ];
+
+  // The number of times each data source is read.
+  optional bool num_epochs = 16;
+
+  optional bool use_sent_list = 999 [ default = false ];
+}

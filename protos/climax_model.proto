@@ -1,0 +1,96 @@
+syntax = "proto2";
+
+message ClimaxModel {
+  // Number of topics.
+  optional int32 number_of_topics = 2 [ default = 38 ];
+
+  // Number of sentiments.
+  optional int32 number_of_sentiments = 3 [ default = 30 ];
+
+  // If true, use frame features.
+  optional bool use_frame_features = 4 [ default = true ];
+
+  // If true, use common objects as extra features.
+  optional bool use_common_object = 5 [ default = false ];
+
+  // if true, use place as extra features.
+  optional bool use_place = 6 [ default = false ];
+
+  // If true, use emotic predictions as extra features.
+  optional bool use_emotic = 7 [ default = false ];
+
+  // If true, use the difference of the frame feature.
+  optional bool use_frame_difference = 8 [ default = false ];
+
+  // Number of lstm layers.
+  optional int32 lstm_number_of_layers = 10 [ default = 1 ];
+
+  // Number of lstm hidden units.
+  optional int32 lstm_hidden_units = 11 [ default = 1024 ];
+
+  // Keep probability of the lstm cell's input.
+  optional float lstm_input_keep_prob = 12 [ default = 0.8 ];
+
+  // Keep probability of the lstm cell's output.
+  optional float lstm_output_keep_prob = 13 [ default = 0.8 ];
+
+  optional float lstm_state_keep_prob = 143 [ default = 0.8 ];
+
+  // Init width of the weights in lstm cell.
+  optional float lstm_init_width = 14 [ default = 0.08 ];
+
+  enum EncodeMethod {
+    NONE = 0;
+    LSTM = 1;
+    BILSTM = 2;
+    CONV = 3;
+  }
+  // Encode method.
+  optional EncodeMethod encode_method = 15 [ default = LSTM ];
+
+  // If true, use common objects as extra features.
+  optional bool predict_common_object = 21 [ default = false ];
+
+  optional int32 common_object_number_of_classes = 22 [ default = 90 ];
+
+  // If true, emotic predictions as extra features.
+  optional bool predict_emotic = 23 [ default = false ];
+
+  optional int32 emotic_number_of_classes = 24 [ default = 31 ];
+
+  optional float common_object_loss_weight = 25 [default = 1.0];
+
+  optional float sentiment_loss_weight = 30 [ default = 1.0 ];
+  optional float emotic_loss_weight = 31 [ default = 1.0 ];
+  optional float topic_loss_weight = 32 [ default = 1.0 ];
+
+  enum LossFunc {
+    SOFTMAX = 0;
+    SIGMOID = 1;
+  }
+  optional LossFunc sentiment_loss_function = 33 [ default = SOFTMAX ];
+
+  enum Task {
+    SENTIMENT = 0;
+    TOPIC = 1;
+  }
+  optional Task final_task = 34 [ default = SENTIMENT ];
+
+  optional bool sample_negatives = 50 [ default = false ];
+
+  optional bool bof_use_avg_pool = 40 [ default = true ];
+  optional bool bof_use_max_pool = 41 [ default = false ];
+  optional float bof_input_dropout_keep_prob = 42 [ default = 1.0 ];
+
+  optional float conv_input_dropout_keep_prob = 43 [ default = 1.0 ];
+  optional float conv_output_dropout_keep_prob = 44 [ default = 1.0 ];
+  optional float conv_window_size = 45 [ default = 5 ];
+  optional float conv_output_units = 46 [ default = 10 ];
+
+
+  optional bool use_shot_boundary = 60 [ default = false ];
+  optional bool use_optical_flow = 61 [ default = false ];
+  optional bool use_audio = 62 [ default = false ];
+  optional bool use_affectnet = 63 [ default = false ];
+}
+

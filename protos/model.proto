@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+import "protos/baseline_model.proto";
+import "protos/semantic_model.proto";
+import "protos/climax_model.proto";
+
+message Model {
+  oneof model {
+    BaselineModel baseline_model = 1;
+    SemanticModel semantic_model = 2;
+    ClimaxModel climax_model = 3;
+  }
+}
